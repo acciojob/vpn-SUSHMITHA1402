@@ -44,24 +44,23 @@ public class ConnectionServiceImpl implements ConnectionService {
         if(serviceProviderList==null) throw new Exception("Unable to connect");
         for (ServiceProvider serviceProvider:serviceProviderList){
             List<Country> countryList = serviceProvider.getCountryList();
+            if(countryList==null) flag = true;
             for (Country country:countryList){
-                if(country.getCountryName().toString().equals(countryName)){
-                    flag = true;
+                String currCountry = country.getCountryName().toString();
+                if(currCountry.equals(countryName)){
                     if (possibleServiceProvider==null){
                         newCode = country.getCode();
                         possibleServiceProvider = serviceProvider;
-                        break;
                     }
                     else if(serviceProvider.getId()<possibleServiceProvider.getId()) {
                        possibleServiceProvider = serviceProvider;
-                       break;
                     }
 
                 }
             }
 
         }
-        if (flag==false) throw new Exception("country not matched");
+        if (flag==true) throw new Exception("country null");
         if (possibleServiceProvider==null) throw new Exception("Unable to connect");
         user.setMaskedIp(newCode+"."+possibleServiceProvider.getId()+"."+user.getId());
         user.setConnected(true);
