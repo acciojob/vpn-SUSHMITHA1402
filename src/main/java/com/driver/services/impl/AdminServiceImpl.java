@@ -55,7 +55,7 @@ public class AdminServiceImpl implements AdminService {
         // You should create a new Country object based on the given country name and add it to the country list of the service provider. Note that the user attribute of the country in this case would be null.
         //In case country name is not amongst the above mentioned strings, throw "Country not found" exception
         if(countryName.length()!=3) throw new Exception("Country not found");
-        countryName.toUpperCase();
+        countryName = countryName.toUpperCase();
         Country country = new Country();
         if (countryName.equals("IND")){
             country.setCountryName(CountryName.IND);

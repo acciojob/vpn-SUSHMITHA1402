@@ -38,6 +38,7 @@ public class ConnectionServiceImpl implements ConnectionService {
 
         ServiceProvider possibleServiceProvider = null;
         String newCode ="";
+        countryName = countryName.toUpperCase();
         List<ServiceProvider> serviceProviderList = user.getServiceProviderList();
         if(serviceProviderList==null) throw new Exception("Unable to connect");
         for (ServiceProvider serviceProvider:serviceProviderList){
@@ -47,11 +48,9 @@ public class ConnectionServiceImpl implements ConnectionService {
                     if (possibleServiceProvider==null){
                         newCode = country.getCode();
                         possibleServiceProvider = serviceProvider;
-                        break;
                     }
                     if(serviceProvider.getId()<possibleServiceProvider.getId()) {
                        possibleServiceProvider = serviceProvider;
-                       break;
                     }
 
                 }
@@ -117,7 +116,6 @@ public class ConnectionServiceImpl implements ConnectionService {
             else if (receiverCountry.equals(CountryName.IND.toCode())) countryName="IND";
             else if (receiverCountry.equals(CountryName.CHI.toCode())) countryName="CHI";
             else if (receiverCountry.equals(CountryName.JPN.toCode())) countryName="JPN";
-
             sender = connect(senderId,countryName);
             return sender;
         }

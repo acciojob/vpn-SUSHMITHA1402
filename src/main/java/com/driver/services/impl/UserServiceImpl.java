@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(password);
 
         if(countryName.length()!=3) throw new Exception("Country not found");
-        countryName.toUpperCase();
+        countryName = countryName.toUpperCase();
         Country country = new Country();
         if (countryName.equals("IND")){
             country.setCountryName(CountryName.IND);
