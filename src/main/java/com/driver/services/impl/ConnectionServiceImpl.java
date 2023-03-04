@@ -48,9 +48,11 @@ public class ConnectionServiceImpl implements ConnectionService {
                     if (possibleServiceProvider==null){
                         newCode = country.getCode();
                         possibleServiceProvider = serviceProvider;
+                        break;
                     }
                     if(serviceProvider.getId()<possibleServiceProvider.getId()) {
                        possibleServiceProvider = serviceProvider;
+                       break;
                     }
 
                 }
@@ -69,6 +71,12 @@ public class ConnectionServiceImpl implements ConnectionService {
         user.setConnectionList(connections);
 
         userRepository2.save(user);
+
+        List<Connection> connectionList = possibleServiceProvider.getConnectionList();
+        connectionList.add(connection);
+        possibleServiceProvider.setConnectionList(connectionList);
+
+        serviceProviderRepository2.save(possibleServiceProvider);
 
         return user;
         //Else, establish the connection where the maskedIp is "updatedCountryCode.serviceProviderId.userId" and return the updated user.

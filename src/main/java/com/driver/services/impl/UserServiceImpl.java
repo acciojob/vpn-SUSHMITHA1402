@@ -54,6 +54,7 @@ public class UserServiceImpl implements UserService {
         }
         else throw new Exception("Country not found");
         user.setOriginalIp(country.getCode()+"."+user.getId());
+        user.setConnected(false);
         country.setUser(user);
         user.setOriginalCountry(country);
 
@@ -74,6 +75,7 @@ public class UserServiceImpl implements UserService {
         serviceProvider.setUsers(users);
 
         userRepository3.save(user);
+        //serviceProviderRepository3.save(serviceProvider);
         return user;
     }
 }
