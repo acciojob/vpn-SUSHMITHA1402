@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
         else throw new Exception("Country not found");
         user.setOriginalIp(country.getCode()+"."+user.getId());
         country.setUser(user);
-        user.setCountry(country);
+        user.setOriginalCountry(country);
 
         userRepository3.save(user);
         return user;

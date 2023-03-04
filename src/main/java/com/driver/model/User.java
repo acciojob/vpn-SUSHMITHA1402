@@ -27,8 +27,16 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Connection> connectionList = new ArrayList<>();
 
+    public Country getOriginalCountry() {
+        return originalCountry;
+    }
+
+    public void setOriginalCountry(Country originalCountry) {
+        this.originalCountry = originalCountry;
+    }
+
     @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-    private Country country;
+    private Country originalCountry;
 
     public User() {
     }
@@ -97,11 +105,5 @@ public class User {
         this.connectionList = connectionList;
     }
 
-    public Country getCountry() {
-        return country;
-    }
 
-    public void setCountry(Country country) {
-        this.country = country;
-    }
 }

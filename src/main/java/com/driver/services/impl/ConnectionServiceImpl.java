@@ -29,7 +29,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         //2. Else if the countryName corresponds to the original country of the user, do nothing.
         // This means that the user wants to connect to its original country, for which we do not require a connection.
         // Thus, return the user as it is.
-        String originalCountry = user.getCountry().getCountryName().toString();
+        String originalCountry = user.getOriginalCountry().getCountryName().toString();
         if(originalCountry.equals(countryName)) return user;
 
         //3. Else, the user should be subscribed under a serviceProvider having option to connect to the given country.
@@ -97,14 +97,14 @@ public class ConnectionServiceImpl implements ConnectionService {
         //If the receiver is connected to a vpn, his current country is the one he is connected to.
         //If the receiver is not connected to vpn, his current country is his original country.
         String receiverCountry ="";
-        if(receiver.getConnected()==Boolean.FALSE) receiverCountry = receiver.getCountry().getCode();
+        if(receiver.getConnected()==Boolean.FALSE) receiverCountry = receiver.getOriginalCountry().getCode();
         else{
             receiverCountry = receiver.getMaskedIp().substring(0,3);
         }
 
         //If the sender's original country matches receiver's current country,
         // we do not need to do anything as they can communicate. Return the sender as it is.
-        if(sender.getCountry().getCode().equals(receiverCountry)) return sender;
+        if(sender.getOriginalCountry().getCode().equals(receiverCountry)) return sender;
 
         //If the sender's original country does not match receiver's current country,
         // we need to connect the sender to a suitable vpn. If there are multiple options,
